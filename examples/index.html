@@ -1,0 +1,60 @@
+<html>
+	<style>
+	body{
+		margin:0;
+		padding:0;
+	}
+	#viewer{
+		width:75%;
+		height:100%;
+		display:inline-block;
+	}
+	#list{
+		width:23%;
+		height:100%;
+		overflow:none;
+		overflow-x:none;
+		overflow-y:scroll;
+		display:inline-block;
+		font-family:Arial;
+	}
+	.image{
+		width:100%;
+		height:80%;
+	}
+	</style>
+	<script>
+	let viewer,list;
+	function init(){
+		viewer=document.getElementById("viewer");
+		list=document.getElementById("list");
+		viewer.src="./select.html";
+		let examples=[
+			["Geometries","geometries.html"],
+			["Custom Geometries","geometries_custom.html"],
+			["Materials","materials.html"],
+			["Lights","lights.html"],
+			["Lines","lines.html"],
+			["OBJ Loader","objloader.html"]
+		];
+		for(let i=0;i<examples.length;i++){
+			let elem=document.createElement("div");
+			elem.style.width='100%';
+			elem.style.height='30%';
+			elem.style.background='gray';
+			elem.style.marginTop='12px';
+			elem.style.marginLeft='12px';
+			elem.innerHTML="<img src='images/"+examples[i][1]+".png' class='image'/><br/>"+examples[i][0];
+			elem.id=examples[i][1];
+			elem.addEventListener("click",function(){
+				viewer.src=this.id;
+			});
+			list.appendChild(elem);
+		}
+	}
+	</script>
+	<body onload="init();">
+		<div id="list"></div>
+		<iframe id="viewer"></iframe>
+	</body>
+</html>

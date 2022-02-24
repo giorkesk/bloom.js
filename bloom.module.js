@@ -415,7 +415,7 @@ class Material{
 	
 		this.getColor=function(normal){
 		
-			return(new Color(Math.random()*255,Math.random()*255,Math.random()*255));
+			return(new Color(0,0,0));
 			
 		}
 		

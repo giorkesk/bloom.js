@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+	<style>
+		body{
+			margin:0;
+			padding:0;
+		}
+		#floating{
+			text-align:center;
+			margin-top:30px;
+			color:white;
+			font-family:Monospace;
+			position:fixed;
+			width:960px;
+		}
+		#floating2{
+			text-align:center;
+			margin-top:60px;
+			color:white;
+			font-family:Monospace;
+			position:fixed;
+			width:960px;
+		}
+	</style>
+	<script type="module">
+		import * as BLOOM from "../bloom.module.js";
+		
+		let renderer,scene,camera;
+		
+		function init(){
+			renderer=new BLOOM.Renderer();
+			scene=new BLOOM.Scene();
+			camera=new BLOOM.Camera();
+			camera.position.z=-300;
+			camera.position.y=-150;
+			camera.rotation.x=-45;
+			
+			let custom_geometry=new BLOOM.Geometry();
+			custom_geometry.vertex.push(new BLOOM.Vector3(0,0,0));
+			custom_geometry.vertex.push(new BLOOM.Vector3(100,0,0));
+			custom_geometry.vertex.push(new BLOOM.Vector3(0,100,0));
+			custom_geometry.tris.push([0,1,2]);
+			
+			let material=new BLOOM.LightMaterial(new BLOOM.Color(200,0,255));
+			let mesh=new BLOOM.Mesh(custom_geometry,material);
+			let light=new BLOOM.Light();
+			light.position.z=-800;
+			scene.add(mesh);
+			document.getElementById("content").appendChild(renderer.domElement);
+			animate();
+		}
+		function animate(){
+			requestAnimationFrame(animate);
+			renderer.render(scene,camera);
+		}
+		document.addEventListener("DOMContentLoaded",init);
+	</script>
+	<body>
+	<p id="floating">bloom.js - custom geometry example</p>
+	<p id="floating2">a triangle is created using vertices and faces</p>
+	<div id="content">
+	</div>
+	</body>
+</html>

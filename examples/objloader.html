@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+	<style>
+		body{
+			margin:0;
+			padding:0;
+		}
+		#floating{
+			text-align:center;
+			margin-top:30px;
+			color:white;
+			font-family:Monospace;
+			position:fixed;
+			width:960px;
+		}
+		#floating2{
+			text-align:center;
+			margin-top:60px;
+			color:white;
+			font-family:Monospace;
+			position:fixed;
+			width:960px;
+		}
+	</style>
+	<script type="module">
+		import * as BLOOM from "../bloom.module.js";
+		
+		let renderer,scene,camera,mesh;
+		
+		function init(){
+			renderer=new BLOOM.Renderer();
+			scene=new BLOOM.Scene();
+			camera=new BLOOM.Camera();
+			camera.position.z=-500;
+			new BLOOM.OBJLoader().load("object.obj",function(geometry){
+				mesh=new BLOOM.Mesh(geometry,new BLOOM.LightMaterial(new BLOOM.Color(255,155,55)));
+				mesh.position.z=600;
+				mesh.rotation.x=180*(Math.PI/180);
+				scene.add(mesh);
+			});
+			scene.add(new BLOOM.Light());
+			document.getElementById("content").appendChild(renderer.domElement);
+			animate();
+		}
+		function animate(){
+			requestAnimationFrame(animate);
+			renderer.render(scene,camera);
+			try{
+				mesh.rotation.y+=0.01;
+			}catch(err){}
+		}
+		document.addEventListener("DOMContentLoaded",init);
+	</script>
+	<body>
+	<p id="floating">bloom.js - objloader example</p>
+	<p id="floating2">Bunny by the <a href="http://graphics.stanford.edu/data/3Dscanrep/">Stanford 3D scanning repository</a>.</p>
+	<div id="content">
+	</div>
+	</body>
+</html>
