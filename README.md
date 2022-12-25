@@ -1,5 +1,7 @@
 # bloom.js
 
+do not use
+
 A simple 3D graphics library. (Non-webgl)
 
 Works with canvas getContext("2d")
